@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.0.0
+MinimumVisualStudioVersion = 10.0.0.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGLayers", "MGLayers\MGLayers.csproj", "{3C261E23-60B0-41B2-8E57-EA2EC296247F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFAssetPack", "FFAssetPack\FFAssetPack.csproj", "{0A9DDB73-1B53-429D-99FC-DF8A9D09A8E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFAssetPackTool", "FFAssetPackTool\FFAssetPackTool.csproj", "{196A8364-7ADB-48CF-B094-C120806DFAF5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C261E23-60B0-41B2-8E57-EA2EC296247F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C261E23-60B0-41B2-8E57-EA2EC296247F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C261E23-60B0-41B2-8E57-EA2EC296247F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C261E23-60B0-41B2-8E57-EA2EC296247F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A9DDB73-1B53-429D-99FC-DF8A9D09A8E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A9DDB73-1B53-429D-99FC-DF8A9D09A8E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A9DDB73-1B53-429D-99FC-DF8A9D09A8E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A9DDB73-1B53-429D-99FC-DF8A9D09A8E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{196A8364-7ADB-48CF-B094-C120806DFAF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{196A8364-7ADB-48CF-B094-C120806DFAF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{196A8364-7ADB-48CF-B094-C120806DFAF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{196A8364-7ADB-48CF-B094-C120806DFAF5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
