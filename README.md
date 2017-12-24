@@ -48,6 +48,12 @@ The format is:
 See the `PakFileWriter` source file for a reference implementation.
 `PakFile` has a reference implementation of a reader.
 
+## Troubleshooting
+
+Sometimes, installing the `MGLayers` package can cause MonoGame to prioritize `MonoGame.Framework.Portable`, and
+this will result in `Window` being `null`, likely breaking your game. To solve this, uninstall your platform-specific
+package (`MonoGame.Framework.DesktopGL` for example), install `MGLayers`, then reinstall the platform-specific package.
+
 Copyright &copy; 2017-2018 0xFireball. All Rights Reserved.
 
 Licensed under the Apache License 2.0.

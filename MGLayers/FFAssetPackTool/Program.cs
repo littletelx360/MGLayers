@@ -29,7 +29,8 @@ namespace FFAssetPackTool {
                 using (var pakWriter = new PakFileWriter(targetFile, useCompression)) {
                     foreach (var sourceFile in Directory.GetFiles(directory, "*", SearchOption.AllDirectories)) {
                         var fileName = sourceFile.Substring(directory.Length)
-                            .TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                            .TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                            .Replace("\\", "/"); // replace Windows directory-separator with default one
                         pakWriter.addFile(fileName, File.OpenRead(sourceFile));
                     }
 
@@ -44,6 +45,8 @@ namespace FFAssetPackTool {
                     foreach (var packedFile in pakFile.getFileNames()) {
                         var file = pakFile.getFile(packedFile);
                         var outputPath = Path.Combine(directory, packedFile);
+                        Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+                        
                         using (var outputStream = File.OpenWrite(outputPath)) {
                             file.CopyTo(outputStream);
                         }
