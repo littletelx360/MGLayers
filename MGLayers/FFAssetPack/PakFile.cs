@@ -108,6 +108,10 @@ namespace FFAssetPack {
             return new PakFileStream(stream, entry.offset, entry.length);
         }
 
+        public bool hasFile(string path) {
+            return _index.ContainsKey(path);
+        }
+
         public IEnumerable<string> getFileNames() {
             return _index.Keys.AsEnumerable();
         }
