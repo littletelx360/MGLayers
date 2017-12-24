@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using LZ4;
 
 namespace FFAssetPack {
-    public class PakFileWriter {
+    public class PakFileWriter : IDisposable {
         private Stream _outputStream;
         private readonly bool compressed;
 
@@ -72,6 +73,10 @@ namespace FFAssetPack {
 
         public void close() {
             _outputStream.Close();
+        }
+
+        public void Dispose() {
+            close();
         }
     }
 }

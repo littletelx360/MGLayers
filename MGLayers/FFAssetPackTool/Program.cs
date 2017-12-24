@@ -25,15 +25,16 @@ namespace FFAssetPackTool {
             var useCompression = options.Contains("-c");
 
             if (command == "create") {
-                var targetFile = File.Open(target, FileMode.Create, FileAccess.Write);
-                var pakWriter = new PakFileWriter(targetFile, useCompression);
-                foreach (var sourceFile in Directory.GetFiles(directory, "*", SearchOption.AllDirectories)) {
-                    var fileName = sourceFile.Substring(directory.Length)
-                        .TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-                    pakWriter.addFile(fileName, File.OpenRead(sourceFile));
+                using (var targetFile = File.Open(target, FileMode.Create, FileAccess.Write))
+                using (var pakWriter = new PakFileWriter(targetFile, useCompression)) {
+                    foreach (var sourceFile in Directory.GetFiles(directory, "*", SearchOption.AllDirectories)) {
+                        var fileName = sourceFile.Substring(directory.Length)
+                            .TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                        pakWriter.addFile(fileName, File.OpenRead(sourceFile));
+                    }
+
+                    pakWriter.write();
                 }
-                pakWriter.write();
-                pakWriter.close();
             } else if (command == "unpack") {
                 Directory.CreateDirectory(directory);
                 using (var targetFile = File.OpenRead(target))
@@ -42,7 +43,10 @@ namespace FFAssetPackTool {
 
                     foreach (var packedFile in pakFile.getFileNames()) {
                         var file = pakFile.getFile(packedFile);
-                        file.CopyTo(File.OpenWrite(Path.Combine(directory, packedFile)));
+                        var outputPath = Path.Combine(directory, packedFile);
+                        using (var outputStream = File.OpenWrite(outputPath)) {
+                            file.CopyTo(outputStream);
+                        }
                     }
                 }
             }
