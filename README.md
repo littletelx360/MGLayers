@@ -41,3 +41,7 @@ The format is:
 
 See the `PakFileWriter` source file for a reference implementation.
 `PakFile` has a reference implementation of a reader.
+
+Copyright &copy; 2017-2018 0xFireball. All Rights Reserved.
+
+Licensed under the Apache License 2.0.
