@@ -7,6 +7,7 @@ namespace MGLayers {
 
         public PakFileContentSource(PakFile pakFile) {
             _pakFile = pakFile;
+            _pakFile.read();
         }
 
         public Stream openFile(string path) {
