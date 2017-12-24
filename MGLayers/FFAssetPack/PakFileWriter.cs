@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using LZ4;
+// using LZ4;
 
 namespace FFAssetPack {
     public class PakFileWriter : IDisposable {
@@ -41,7 +41,7 @@ namespace FFAssetPack {
             }
             if (compressed) {
                 // create new output stream
-                _outputStream = new LZ4Stream(_outputStream, LZ4StreamMode.Compress);
+                // _outputStream = new LZ4Stream(_outputStream, LZ4StreamMode.Compress);
             }
 
             using (var bw = new BinaryWriter(_outputStream, Encoding.Default)) {

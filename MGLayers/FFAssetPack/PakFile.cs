@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using LZ4;
+// using LZ4;
 
 namespace FFAssetPack {
     public class PakFile : IDisposable {
@@ -81,7 +81,7 @@ namespace FFAssetPack {
             var headerRead = stream.Read(headerBuf, 0, headerBuf.Length);
             var compressionHeader = BitConverter.ToInt32(headerBuf, 0);
             if (compressionHeader == INDIC_COMPRESSED) {
-                this.stream = new LZ4Stream(stream, LZ4StreamMode.Decompress);
+                // this.stream = new LZ4Stream(stream, LZ4StreamMode.Decompress);
             }
             
             using (var br = new BinaryReader(stream, Encoding.Default, true)) {

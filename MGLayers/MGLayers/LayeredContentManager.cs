@@ -26,6 +26,7 @@ namespace MGLayers {
         }
 
         protected override Stream OpenStream(string assetName) {
+            assetName += ".xnb"; // append built content format
             var source = _contentSources.FirstOrDefault(x => x.Key.hasFile(assetName));
             if (source.Key != null) {
                 return source.Key.openFile(assetName);
