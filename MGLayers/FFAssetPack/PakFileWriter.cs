@@ -34,13 +34,11 @@ namespace FFAssetPack {
             // - Data -
             // 0x12, Raw file data at the offsets
 
-
+            // Write compression indicator
+            using (var bw = new BinaryWriter(_outputStream, Encoding.Default, true)) {
+                bw.Write(compressed ? PakFile.INDIC_COMPRESSED : PakFile.INDIC_UNCOMPRESSED);
+            }
             if (compressed) {
-                // Write compression indicator
-                using (var bw = new BinaryWriter(_outputStream, Encoding.Default, true)) {
-                    bw.Write(compressed ? PakFile.INDIC_COMPRESSED : PakFile.INDIC_UNCOMPRESSED);
-                }
-
                 // create new output stream
                 _outputStream = new LZ4Stream(_outputStream, LZ4StreamMode.Compress);
             }
