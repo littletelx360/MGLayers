@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using LZ4;
 
 namespace FFAssetPack {
-    public class PakFile {
+    public class PakFile : IDisposable {
         public const int INDEX_HEADER_DELIM = 0x11;
         public const int OFFSET_BEGIN = 0x12;
 
-        public const int PREFERRED_BUF_SIZE = 64 * 1024;
+        public const int INDIC_UNCOMPRESSED = 0x00;
+        public const int INDIC_COMPRESSED = 0x01;
 
-        public readonly Stream stream;
+        public Stream stream { get; private set; }
 
         class DataFile {
             public long length;
@@ -73,19 +76,26 @@ namespace FFAssetPack {
         }
 
         public void read() {
-            // read pak file index
+            
+            var headerBuf = new byte[4];
+            var headerRead = stream.Read(headerBuf, 0, headerBuf.Length);
+            var compressionHeader = BitConverter.ToInt32(headerBuf, 0);
+            if (compressionHeader == INDIC_COMPRESSED) {
+                this.stream = new LZ4Stream(stream, LZ4StreamMode.Decompress);
+            }
+            
             using (var br = new BinaryReader(stream, Encoding.Default, true)) {
+                // read pak file index
+                var delim = -1;
                 while (true) {
-                    var delim = br.PeekChar();
+                    delim = br.ReadInt32();
                     if (delim != INDEX_HEADER_DELIM) break;
-                    br.ReadInt32(); // eat the header
                     var length = br.ReadInt64();
                     var nameLength = br.ReadInt32();
                     var name = br.ReadString();
                     _index[name] = new DataFile {length = length};
                 }
-                var offsetDelim = br.ReadInt32();
-                if (offsetDelim != OFFSET_BEGIN) throw new DataMisalignedException();
+                if (delim != OFFSET_BEGIN) throw new DataMisalignedException();
                 // read offsets
                 foreach (var entry in _index) {
                     entry.Value.offset = br.ReadInt64();
@@ -96,6 +106,18 @@ namespace FFAssetPack {
         public PakFileStream getFile(string path) {
             var entry = _index[path];
             return new PakFileStream(stream, entry.offset, entry.length);
+        }
+
+        public IEnumerable<string> getFileNames() {
+            return _index.Keys.AsEnumerable();
+        }
+
+        public void close() {
+            stream.Close();
+        }
+
+        public void Dispose() {
+            close();
         }
     }
 }
