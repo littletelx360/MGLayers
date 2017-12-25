@@ -23,14 +23,16 @@ namespace FFAssetPack {
         public class PakFileStream : Stream {
             private Stream baseStream;
             private long baseLength;
+            private long baseOffset;
 
             private long position = 0;
 
             public PakFileStream(Stream baseStream, long offset, long length) {
                 this.baseStream = baseStream;
                 this.baseLength = length;
+                this.baseOffset = offset;
 
-                baseStream.Position = offset;
+                baseStream.Position = baseOffset;
             }
 
             public override void Flush() {
@@ -47,7 +49,7 @@ namespace FFAssetPack {
 
             public override int Read(byte[] buffer, int offset, int count) {
                 var remaining = baseLength - position;
-                baseStream.Position = offset + position; // ensure position of underlying stream
+                baseStream.Position = baseOffset + position; // ensure position of underlying stream
                 if (remaining <= 0) return 0;
                 if (remaining < count) count = (int) remaining;
                 var read = baseStream.Read(buffer, offset, count);
