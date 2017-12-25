@@ -24,7 +24,7 @@ namespace FFAssetPack {
             private Stream baseStream;
             private long baseLength;
 
-            private long position;
+            private long position = 0;
 
             public PakFileStream(Stream baseStream, long offset, long length) {
                 this.baseStream = baseStream;
@@ -47,6 +47,7 @@ namespace FFAssetPack {
 
             public override int Read(byte[] buffer, int offset, int count) {
                 var remaining = baseLength - position;
+                baseStream.Position = offset + position; // ensure position of underlying stream
                 if (remaining <= 0) return 0;
                 if (remaining < count) count = (int) remaining;
                 var read = baseStream.Read(buffer, offset, count);
