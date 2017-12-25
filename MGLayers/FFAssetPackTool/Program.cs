@@ -47,7 +47,7 @@ namespace FFAssetPackTool {
                         var outputPath = Path.Combine(directory, packedFile);
                         Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
                         
-                        using (var outputStream = File.OpenWrite(outputPath)) {
+                        using (var outputStream = File.Open(outputPath, FileMode.Create, FileAccess.Write)) {
                             file.CopyTo(outputStream);
                         }
                     }
