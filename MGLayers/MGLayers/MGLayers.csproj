@@ -14,7 +14,7 @@
     <Copyright>Copyright © 2017 IridiumIon Software. All Rights Reserved.</Copyright>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.Portable" Version="3.6.0.1625" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.6" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FFAssetPack\FFAssetPack.csproj" />
